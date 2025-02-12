@@ -1,3 +1,6 @@
+import { fileURLToPath } from "url"
+import { dirname } from "path"
+
 import js from "@eslint/js"
 import globals from "globals"
 import reactHooks from "eslint-plugin-react-hooks"
@@ -9,6 +12,8 @@ import jsxA11y from "eslint-plugin-jsx-a11y"
 import eslintPluginPrettier from "eslint-plugin-prettier/recommended"
 
 const project = "./tsconfig.json"
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = dirname(__filename)
 
 export default tseslint.config(
   { ignores: ["dist", "node_modules", "build"] },
@@ -27,6 +32,14 @@ export default tseslint.config(
     languageOptions: {
       ecmaVersion: 2020,
       globals: globals.browser,
+      parserOptions: {
+        ecmaVersion: 6,
+        ecmaFeatures: {
+          jsx: true,
+        },
+        sourceType: "module",
+        tsconfigRootDir: __dirname,
+      },
     },
     settings: {
       react: {
@@ -36,6 +49,10 @@ export default tseslint.config(
         typescript: {
           alwaysTryTypes: true,
           project,
+        },
+        alias: {
+          map: [["@", "./src"]],
+          extensions: [".js", ".jsx", ".ts", ".tsx"],
         },
       },
     },
