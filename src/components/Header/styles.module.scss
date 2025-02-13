@@ -1,0 +1,7 @@
+@use "/src/scss/abstracts/variables";
+
+.header {
+  background-color: variables.$bg-color--main;
+  height: 160px;
+  width: 100%;
+}

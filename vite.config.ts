@@ -19,4 +19,10 @@ export default defineConfig({
   resolve: {
     alias: aliases,
   },
+  css: {
+    modules: {
+      generateScopedName: "[local]___[hash:base64:5]",
+      localsConvention: "camelCaseOnly",
+    },
+  },
 })

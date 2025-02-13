@@ -1,10 +1,17 @@
-import { Button } from "antd"
+import { Flex } from "antd"
 
-function App() {
+import Header from "@/components/Header"
+import Logo from "@/components/Logo"
+import styles from "@/components/App/styles.module.scss"
+
+const App = () => {
   return (
-    <div className="App">
-      <h1>Vite + React + TS</h1>
-      <Button type="primary">Button</Button>
+    <div className={styles.app}>
+      <Header>
+        <Flex justify="center" align="center" style={{ height: 160 }}>
+          <Logo />
+        </Flex>
+      </Header>
     </div>
   )
 }

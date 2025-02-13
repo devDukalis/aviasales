@@ -1,0 +1,21 @@
+/* COLORS */
+$bg-color--main: #f3f7fa;
+$bg-color--second: #ffffff;
+$bg-color--highlight: #2196f3;
+$font-color--main: #4a4a4a;
+$font-color--second: #a0b0b9;
+$font-color--price: #2196f3;
+$font-color--highlight: #ffffff;
+$border-color--main: #dfe5ec;
+$filter-color--active: #f1fcff;
+
+/* SCREEN BREAKPOINTS */
+$breakpoints: (
+  mobile: 320px,
+  tablet: 768px,
+  desktop: 1024px,
+  large-desktop: 1200px,
+);
+
+/* SAFE HEIGHT OF MOBILE TOP / BOTTOM PANELS */
+$height--mobile-panels: calc(100vh - env(safe-area-inset-bottom) -env(safe-area-inset-top));
