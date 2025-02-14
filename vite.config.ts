@@ -4,6 +4,7 @@ import { dirname, resolve } from "path"
 import { defineConfig } from "vite"
 import react from "@vitejs/plugin-react"
 import tsconfigPaths from "vite-tsconfig-paths"
+import svgr from "vite-plugin-svgr"
 
 // Define __dirname for ES modules
 const __filename = fileURLToPath(import.meta.url)
@@ -15,7 +16,7 @@ export const aliases = {
 
 // https://vite.dev/config/
 export default defineConfig({
-  plugins: [react(), tsconfigPaths()],
+  plugins: [react(), tsconfigPaths(), svgr({})],
   resolve: {
     alias: aliases,
   },

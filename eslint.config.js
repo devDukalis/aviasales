@@ -52,7 +52,7 @@ export default tseslint.config(
         },
         alias: {
           map: [["@", "./src"]],
-          extensions: [".js", ".jsx", ".ts", ".tsx"],
+          extensions: [".js", ".jsx", ".ts", ".tsx", ".svg"],
         },
       },
     },

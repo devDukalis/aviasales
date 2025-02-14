@@ -18,6 +18,7 @@
     "paths": {
       "@/*": ["./src/*", "./dist/*", ""]
     },
+    "types": ["vite/client", "node"],
 
     /* Linting */
     "strict": true,
