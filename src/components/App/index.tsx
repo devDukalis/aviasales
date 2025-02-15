@@ -1,41 +1,41 @@
-import { Flex, Group } from "@mantine/core"
+import { Flex, Grid, Container, Text } from "@mantine/core"
 
 import Header from "@/components/Header"
 import Logo from "@/components/Logo"
 import Main from "@/components/Main"
 import Aside from "@/components/Aside"
-import TransferFilterItem from "@/components/TransferFilterItem"
+import TransferFilterList from "@/components/TransferFilterList"
+import TicketFilterList from "@/components/TicketFilterList"
 import styles from "@/components/App/styles.module.scss"
+import theme from "@/theme"
 
 const App = () => {
   return (
     <div className={styles.app}>
-      <Header>
-        <Flex justify="center" align="center" style={{ height: 160 }}>
-          <Logo />
-        </Flex>
-      </Header>
+      <Container>
+        <Header>
+          <Flex justify="center" align="center" style={{ height: 160 }}>
+            <Logo />
+          </Flex>
+        </Header>
 
-      <Main>
-        <Aside>
-          <Group gap="xs">
-            <TransferFilterItem value="Все" />
-          </Group>
-          <Group gap="xs">
-            <TransferFilterItem value="Без пересадки" />
-          </Group>
+        <Main>
+          <Grid>
+            <Grid.Col span={3}>
+              <Aside c={theme.colors?.fontMain?.[0]}>
+                <Text size="xs" ff={"Open-Sans-Semi-Bold"} mb={20} lts={"0.5px"} lh={"12px"}>
+                  {"Количество пересадок".toUpperCase()}
+                </Text>
+                <TransferFilterList />
+              </Aside>
+            </Grid.Col>
 
-          <Group gap="xs">
-            <TransferFilterItem value="1 пересадка" />
-          </Group>
-          <Group gap="xs">
-            <TransferFilterItem value="2 пересадки" />
-          </Group>
-          <Group gap="xs">
-            <TransferFilterItem value="3 пересадки" />
-          </Group>
-        </Aside>
-      </Main>
+            <Grid.Col span={8}>
+              <TicketFilterList />
+            </Grid.Col>
+          </Grid>
+        </Main>
+      </Container>
     </div>
   )
 }

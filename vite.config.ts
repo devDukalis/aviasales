@@ -16,7 +16,7 @@ export const aliases = {
 
 // https://vite.dev/config/
 export default defineConfig({
-  plugins: [react(), tsconfigPaths(), svgr({})],
+  plugins: [react(), tsconfigPaths(), svgr()],
   resolve: {
     alias: aliases,
   },
