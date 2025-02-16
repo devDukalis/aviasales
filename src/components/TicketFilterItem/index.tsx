@@ -11,7 +11,7 @@ type Props = {
 const TicketFilterItem: FC<Props> = ({ value, borderRadius, isActive, onClick }) => {
   return (
     <Button
-      h={50}
+      h={{ base: 32, sm: 40, md: 50 }}
       fz={12}
       ff={"Open-Sans-Semi-Bold"}
       lts={0.5}
@@ -21,8 +21,7 @@ const TicketFilterItem: FC<Props> = ({ value, borderRadius, isActive, onClick })
       onClick={onClick}
       styles={(theme) => ({
         root: {
-          backgroundColor: isActive ? theme.colors.bgHighlight[0] : undefined,
-          transition: "border-color 0.2s ease",
+          backgroundColor: isActive ? theme.colors.bgHighlight[0] : theme.colors.bgSecond[0],
         },
       })}>
       {value}

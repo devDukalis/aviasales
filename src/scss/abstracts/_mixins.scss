@@ -1,11 +1,12 @@
+@use "sass:map";
 @use "variables";
 
 /* Create responsive styles based on defined breakpoints */
 @mixin respond-to($breakpoint) {
-  $breakpoint-value: map-get(variables.$breakpoints, $breakpoint);
+  $breakpoint-value: map.get(variables.$breakpoints, $breakpoint);
 
   @if $breakpoint-value {
-    @media (min-width: $breakpoint-value) {
+    @media (max-width: $breakpoint-value) {
       @content;
     }
   } @else {

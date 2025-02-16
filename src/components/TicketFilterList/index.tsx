@@ -1,5 +1,6 @@
 import { useState } from "react"
-import { Group } from "@mantine/core"
+import { Group, Stack } from "@mantine/core"
+import { useMediaQuery } from "@mantine/hooks"
 
 import TicketFilterItem from "@/components/TicketFilterItem"
 
@@ -8,20 +9,31 @@ const borderRadiusValues = ["5px 0 0 5px", "0", "0 5px 5px 0"]
 
 const TicketFilterList = () => {
   const [activeIndex, setActiveIndex] = useState<number | null>(0)
+  const matches = useMediaQuery("(max-width: 570px)")
 
-  return (
-    <Group gap={0}>
-      {ticketFilters.map((item, index) => {
-        return (
-          <TicketFilterItem
-            value={item.toUpperCase()}
-            key={index}
-            borderRadius={borderRadiusValues[index]}
-            isActive={activeIndex === index}
-            onClick={() => setActiveIndex(index)}
-          />
-        )
-      })}
+  return matches ? (
+    <Stack gap={10}>
+      {ticketFilters.map((item, index) => (
+        <TicketFilterItem
+          value={item.toUpperCase()}
+          key={index}
+          borderRadius={"5px"}
+          isActive={activeIndex === index}
+          onClick={() => setActiveIndex(index)}
+        />
+      ))}
+    </Stack>
+  ) : (
+    <Group gap={0} grow>
+      {ticketFilters.map((item, index) => (
+        <TicketFilterItem
+          value={item.toUpperCase()}
+          key={index}
+          borderRadius={borderRadiusValues[index]}
+          isActive={activeIndex === index}
+          onClick={() => setActiveIndex(index)}
+        />
+      ))}
     </Group>
   )
 }

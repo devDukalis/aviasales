@@ -1,7 +1,12 @@
 @use "/src/scss/abstracts/variables";
+@use "/src/scss/abstracts/mixins";
 
 .header {
   background-color: variables.$bg-color--main;
-  height: 160px;
+  max-height: 160px;
   width: 100%;
+
+  @include mixins.respond-to(sm) {
+    max-height: 120px;
+  }
 }

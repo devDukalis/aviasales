@@ -1,0 +1,8 @@
+@use "/src/scss/abstracts/mixins";
+
+.logo {
+  @include mixins.respond-to(sm) {
+    width: 70px;
+    height: 70px;
+  }
+}

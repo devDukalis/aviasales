@@ -11,10 +11,11 @@ $filter-color--active: #f1fcff;
 
 /* SCREEN BREAKPOINTS */
 $breakpoints: (
-  mobile: 320px,
-  tablet: 768px,
-  desktop: 1024px,
-  large-desktop: 1200px,
+  xs: 0px,
+  sm: 576px,
+  md: 768px,
+  lg: 992px,
+  xl: 1200px,
 );
 
 /* SAFE HEIGHT OF MOBILE TOP / BOTTOM PANELS */
