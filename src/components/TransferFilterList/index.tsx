@@ -1,8 +1,7 @@
 import { List, Group } from "@mantine/core"
 
 import TransferFilterItem from "@/components/TransferFilterItem"
-
-const transferFilters = ["Все", "Без пересадок", "1 пересадка", "2 пересадки", "3 пересадки"]
+import { transferFilters } from "@/constants"
 
 const TransferFilterList = () => {
   return (

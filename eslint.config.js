@@ -68,7 +68,7 @@ export default tseslint.config(
       "react/jsx-no-target-blank": "off",
       "react-refresh/only-export-components": ["warn", { allowConstantExport: true }],
       "react/prop-types": "off",
-      indent: ["error", 2],
+      indent: ["off"],
       "linebreak-style": [0, "unix"],
       quotes: ["error", "double", { allowTemplateLiterals: true }],
       semi: ["error", "never"],

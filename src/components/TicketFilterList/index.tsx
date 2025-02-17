@@ -3,16 +3,14 @@ import { Group, Stack } from "@mantine/core"
 import { useMediaQuery } from "@mantine/hooks"
 
 import TicketFilterItem from "@/components/TicketFilterItem"
-
-const ticketFilters = ["Самый дешевый", "Самый быстрый", "Оптимальный"]
-const borderRadiusValues = ["5px 0 0 5px", "0", "0 5px 5px 0"]
+import { borderRadiusValues, queries, ticketFilters } from "@/constants"
 
 const TicketFilterList = () => {
   const [activeIndex, setActiveIndex] = useState<number | null>(0)
-  const matches = useMediaQuery("(max-width: 570px)")
+  const matches = useMediaQuery(`(max-width:  ${queries[1]})`)
 
   return matches ? (
-    <Stack gap={10}>
+    <Stack gap={10} mb={20}>
       {ticketFilters.map((item, index) => (
         <TicketFilterItem
           value={item.toUpperCase()}
@@ -24,7 +22,7 @@ const TicketFilterList = () => {
       ))}
     </Stack>
   ) : (
-    <Group gap={0} grow>
+    <Group gap={0} grow mb={20}>
       {ticketFilters.map((item, index) => (
         <TicketFilterItem
           value={item.toUpperCase()}

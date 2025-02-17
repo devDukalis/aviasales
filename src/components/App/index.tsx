@@ -6,6 +6,7 @@ import Main from "@/components/Main"
 import Aside from "@/components/Aside"
 import TransferFilterList from "@/components/TransferFilterList"
 import TicketFilterList from "@/components/TicketFilterList"
+import TicketList from "@/components/TicketList"
 import styles from "@/components/App/styles.module.scss"
 import theme from "@/theme"
 
@@ -32,6 +33,7 @@ const App = () => {
 
             <Grid.Col span={{ base: 12, md: 8, lg: 9 }}>
               <TicketFilterList />
+              <TicketList />
             </Grid.Col>
           </Grid>
         </Main>
