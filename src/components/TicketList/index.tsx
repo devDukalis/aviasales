@@ -1,9 +1,16 @@
 import TicketItem from "@/components/TicketItem"
-import { tickets } from "@/constants"
-import { generateUniqueKey } from "@/utils"
+import { useAppSelector } from "@/redux/hooks"
+import { selectSortedTickets } from "@/redux/selectors"
+import EmptyTicket from "@/components/EmptyTicket"
 
 const TicketList = () => {
-  return tickets.map((ticket) => <TicketItem data={ticket} key={generateUniqueKey()} />)
+  const sortedTickets = useAppSelector(selectSortedTickets)
+
+  if (!Array.isArray(sortedTickets) || sortedTickets.length === 0) {
+    return <EmptyTicket />
+  }
+
+  return sortedTickets.map((ticket) => <TicketItem data={ticket} key={ticket.id} />)
 }
 
 export default TicketList

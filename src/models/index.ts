@@ -7,8 +7,18 @@ export type Segment = {
 }
 
 export interface Ticket {
+  id: string
   price: number // Цена в рублях
   carrier: string // Код авиакомпании (iata)
   segments: Segment[] // Массив перелётов
   // В тестовом задании это всегда поиск "туда-обратно" значит состоит из двух элементов
 }
+
+export type FlightTransferFilterKeys =
+  | "all"
+  | "noTransfers"
+  | "oneTransfer"
+  | "twoTransfers"
+  | "threeTransfers"
+
+export type TicketSortFilterKeys = "cheapest" | "fastest" | "optimal"

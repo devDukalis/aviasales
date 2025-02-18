@@ -24,7 +24,15 @@ const App = () => {
           <Grid>
             <Grid.Col span={{ base: 12, md: 4, lg: 3 }}>
               <Aside c={theme.colors?.fontMain?.[0]}>
-                <Text size="xs" ff={"Open-Sans-Semi-Bold"} mb={20} lts={"0.5px"} lh={"12px"}>
+                <Text
+                  size="xs"
+                  ff={"Open-Sans-Semi-Bold"}
+                  mb={20}
+                  lts={"0.5px"}
+                  lh={"12px"}
+                  pl={20}
+                  pr={20}
+                  pt={20}>
                   {"Количество пересадок".toUpperCase()}
                 </Text>
                 <TransferFilterList />

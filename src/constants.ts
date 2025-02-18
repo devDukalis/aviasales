@@ -1,11 +1,25 @@
-export const ticketFilters = ["Самый дешевый", "Самый быстрый", "Оптимальный"]
+import { generateUniqueKey } from "@/utils"
+import { FlightTransferFilterKeys, TicketSortFilterKeys } from "@/models"
+
+export const ticketFilters: { key: TicketSortFilterKeys; label: string }[] = [
+  { key: "cheapest", label: "Самый дешевый" },
+  { key: "fastest", label: "Самый быстрый" },
+  { key: "optimal", label: "Оптимальный" },
+]
 
 export const borderRadiusValues = ["5px 0 0 5px", "0", "0 5px 5px 0"]
 
-export const transferFilters = ["Все", "Без пересадок", "1 пересадка", "2 пересадки", "3 пересадки"]
+export const transferFilters: { key: FlightTransferFilterKeys; label: string }[] = [
+  { key: "all", label: "Все" },
+  { key: "noTransfers", label: "Без пересадок" },
+  { key: "oneTransfer", label: "1 пересадка" },
+  { key: "twoTransfers", label: "2 пересадки" },
+  { key: "threeTransfers", label: "3 пересадки" },
+]
 
 export const tickets = [
   {
+    id: generateUniqueKey(),
     price: 58880,
     carrier: "U6",
     segments: [
@@ -26,6 +40,7 @@ export const tickets = [
     ],
   },
   {
+    id: generateUniqueKey(),
     price: 15340,
     carrier: "S7",
     segments: [
@@ -46,6 +61,7 @@ export const tickets = [
     ],
   },
   {
+    id: generateUniqueKey(),
     price: 30510,
     carrier: "AK",
     segments: [
@@ -66,6 +82,7 @@ export const tickets = [
     ],
   },
   {
+    id: generateUniqueKey(),
     price: 61850,
     carrier: "UT",
     segments: [
@@ -86,6 +103,7 @@ export const tickets = [
     ],
   },
   {
+    id: generateUniqueKey(),
     price: 51710,
     carrier: "BT",
     segments: [
@@ -106,6 +124,7 @@ export const tickets = [
     ],
   },
   {
+    id: generateUniqueKey(),
     price: 47490,
     carrier: "AK",
     segments: [
@@ -126,6 +145,7 @@ export const tickets = [
     ],
   },
   {
+    id: generateUniqueKey(),
     price: 50110,
     carrier: "DP",
     segments: [
@@ -146,6 +166,7 @@ export const tickets = [
     ],
   },
   {
+    id: generateUniqueKey(),
     price: 80350,
     carrier: "FV",
     segments: [
@@ -166,6 +187,7 @@ export const tickets = [
     ],
   },
   {
+    id: generateUniqueKey(),
     price: 20930,
     carrier: "FV",
     segments: [
@@ -186,6 +208,7 @@ export const tickets = [
     ],
   },
   {
+    id: generateUniqueKey(),
     price: 40780,
     carrier: "U6",
     segments: [

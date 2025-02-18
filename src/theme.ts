@@ -128,7 +128,7 @@ const theme: MantineThemeOverride = {
       styles: (theme: MantineTheme, { checked }: { checked: boolean }) => ({
         input: {
           cursor: "pointer",
-          backgroundColor: theme.colors.bgSecond[0],
+          backgroundColor: checked ? theme.colors.filterActive[0] : theme.colors.bgSecond[0],
           border: `1px solid ${checked ? theme.colors.borderHighlight[0] : theme.colors.borderMain[0]}`,
           borderRadius: 2,
           transition: "border-color 0.2s ease",
