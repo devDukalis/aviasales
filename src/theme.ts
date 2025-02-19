@@ -135,6 +135,18 @@ const theme: MantineThemeOverride = {
         },
       }),
     },
+    Button: {
+      styles: (theme: MantineTheme) => ({
+        root: {
+          backgroundColor: theme.colors.bgHighlight[0],
+          fontFamily: "Open-Sans-Semi-Bold",
+          fontSize: 12,
+          letterSpacing: 0.5,
+          lineHeight: 20,
+          height: 50,
+        },
+      }),
+    },
   },
 }
 

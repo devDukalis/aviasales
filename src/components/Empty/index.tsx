@@ -5,20 +5,16 @@ import { useMediaQuery } from "@mantine/hooks"
 import theme from "@/theme"
 import { queries } from "@/constants"
 
-const EmptyTicket: FC = () => {
+const Empty: FC = () => {
   const matches = useMediaQuery(`(max-width: ${queries[0]})`)
 
   return (
     <Paper radius="5px" shadow="sm" p="md" mb="md" ff={"Open-Sans-Semi-Bold"}>
-      <Text fz={matches ? 20 : 24} c={theme.colors?.fontMain?.[0]}>
-        ⚠️ Билеты не найдены!
-      </Text>
-
-      <Text fz={matches ? 14 : 18} c={theme.colors?.fontSecond?.[0]}>
-        🏃🏽‍♂️‍➡️ Возвращайтесь позже
+      <Text fz={matches ? 12 : 16} c={theme.colors?.fontMain?.[0]}>
+        ⚠️ Рейсов, удовлетворяющих заданным условиям, не найдено!
       </Text>
     </Paper>
   )
 }
 
-export default EmptyTicket
+export default Empty

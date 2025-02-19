@@ -1,16 +1,36 @@
+import { Button } from "@mantine/core"
+
 import TicketItem from "@/components/TicketItem"
-import { useAppSelector } from "@/redux/hooks"
-import { selectSortedTickets } from "@/redux/selectors"
-import EmptyTicket from "@/components/EmptyTicket"
+import { useAppDispatch, useAppSelector } from "@/redux/hooks"
+import { selectSortedAndFilteredTickets, selectVisibleTickets } from "@/redux/selectors"
+import Empty from "@/components/Empty"
+import { increaseVisibleTickets } from "@/redux/features/tickets"
 
 const TicketList = () => {
-  const sortedTickets = useAppSelector(selectSortedTickets)
+  const sortedTickets = useAppSelector(selectSortedAndFilteredTickets)
+  const visibleTickets = useAppSelector(selectVisibleTickets)
+  const dispatch = useAppDispatch()
 
-  if (!Array.isArray(sortedTickets) || sortedTickets.length === 0) {
-    return <EmptyTicket />
+  const handleLoadMoreTickets = () => {
+    dispatch(increaseVisibleTickets())
   }
 
-  return sortedTickets.map((ticket) => <TicketItem data={ticket} key={ticket.id} />)
+  if (!Array.isArray(sortedTickets) || sortedTickets.length === 0) {
+    return <Empty />
+  }
+
+  return (
+    <>
+      {sortedTickets.slice(0, visibleTickets).map((ticket) => (
+        <TicketItem data={ticket} key={ticket.id} />
+      ))}
+      {visibleTickets < sortedTickets.length && (
+        <Button onClick={handleLoadMoreTickets} fullWidth mt="20px" tt={"uppercase"}>
+          Показать еще 5 билетов!
+        </Button>
+      )}
+    </>
+  )
 }
 
 export default TicketList

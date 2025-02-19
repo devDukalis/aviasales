@@ -4,22 +4,15 @@ import TransferFilterItem from "@/components/TransferFilterItem"
 import { transferFilters } from "@/constants"
 import { useAppDispatch, useAppSelector } from "@/redux/hooks"
 import { RootState } from "@/redux/store"
-import {
-  FlightTransferFiltersState,
-  toggleAll,
-  toggleFilter,
-} from "@/redux/features/flightTransferFilters"
+import { FlightTransferFilterKeys } from "@/models"
+import { setFilterBy } from "@/redux/features/tickets"
 
 const TransferFilterList = () => {
   const dispatch = useAppDispatch()
-  const filters = useAppSelector((state: RootState) => state.flightTransferFilters)
+  const filters = useAppSelector((state: RootState) => state.tickets.filters)
 
-  const handleToggleAll = () => {
-    dispatch(toggleAll())
-  }
-
-  const handleToggleFilter = (filter: Exclude<keyof FlightTransferFiltersState, "all">) => {
-    dispatch(toggleFilter(filter))
+  const handleToggleFilter = (filter: FlightTransferFilterKeys) => {
+    dispatch(setFilterBy(filter))
   }
 
   return (
@@ -36,14 +29,7 @@ const TransferFilterList = () => {
               <TransferFilterItem
                 value={item.label}
                 checked={filters[item.key]}
-                onChange={
-                  item.key === "all"
-                    ? handleToggleAll
-                    : () =>
-                        handleToggleFilter(
-                          item.key as Exclude<keyof FlightTransferFiltersState, "all">,
-                        )
-                }
+                onChange={() => handleToggleFilter(item.key)}
               />
             </Group>
           </Box>

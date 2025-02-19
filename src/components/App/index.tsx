@@ -1,4 +1,4 @@
-import { Flex, Grid, Container, Text } from "@mantine/core"
+import { Flex, Grid, Container, Text, Box } from "@mantine/core"
 
 import Header from "@/components/Header"
 import Logo from "@/components/Logo"
@@ -12,7 +12,7 @@ import theme from "@/theme"
 
 const App = () => {
   return (
-    <div className={styles.app}>
+    <Box className={styles.app}>
       <Container>
         <Header>
           <Flex justify="center" align="center" h={{ xs: 120, md: 160 }}>
@@ -28,11 +28,9 @@ const App = () => {
                   size="xs"
                   ff={"Open-Sans-Semi-Bold"}
                   mb={20}
-                  lts={"0.5px"}
+                  lts={"0.5"}
                   lh={"12px"}
-                  pl={20}
-                  pr={20}
-                  pt={20}>
+                  p={"20 20 0 20"}>
                   {"Количество пересадок".toUpperCase()}
                 </Text>
                 <TransferFilterList />
@@ -46,7 +44,7 @@ const App = () => {
           </Grid>
         </Main>
       </Container>
-    </div>
+    </Box>
   )
 }
 

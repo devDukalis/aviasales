@@ -1,6 +1,9 @@
 import { format, add } from "date-fns"
 import { ru } from "date-fns/locale"
 
+import { Ticket, TicketSortFilterKeys } from "@/models"
+import { FlightTransferFiltersState } from "@/redux/features/tickets"
+
 export const generateUniqueKey = () => {
   return self.crypto.randomUUID()
 }
@@ -28,4 +31,50 @@ export const formatFlightTransfers = (count: number) => {
   if (lastDigit >= 2 && lastDigit <= 4) return "пересадки"
 
   return "пересадок"
+}
+
+export const filterTicketsByTransfers = (
+  tickets: Ticket[],
+  filters: FlightTransferFiltersState,
+): Ticket[] => {
+  return tickets.filter((ticket) => {
+    const transferCounts = ticket.segments.map((segment) => segment.stops.length)
+
+    if (filters.all) {
+      return true
+    }
+
+    const noTransfers = filters.noTransfers && transferCounts.every((count) => count === 0)
+    const oneTransfer = filters.oneTransfer && transferCounts.some((count) => count === 1)
+    const twoTransfers = filters.twoTransfers && transferCounts.some((count) => count === 2)
+    const threeTransfers = filters.threeTransfers && transferCounts.some((count) => count === 3)
+
+    return noTransfers || oneTransfer || twoTransfers || threeTransfers
+  })
+}
+
+export const sortTickets = (tickets: Ticket[], sortBy: TicketSortFilterKeys): Ticket[] => {
+  const sortedTickets = [...tickets]
+
+  if (sortBy === "cheapest") {
+    sortedTickets.sort((a, b) => a.price - b.price)
+  } else if (sortBy === "fastest") {
+    sortedTickets.sort((a, b) => {
+      const totalDurationA = a.segments.reduce((sum, segment) => sum + segment.duration, 0)
+      const totalDurationB = b.segments.reduce((sum, segment) => sum + segment.duration, 0)
+
+      return totalDurationA - totalDurationB
+    })
+  } else if (sortBy === "optimal") {
+    sortedTickets.sort((a, b) => {
+      const totalDurationA = a.segments.reduce((sum, segment) => sum + segment.duration, 0)
+      const totalDurationB = b.segments.reduce((sum, segment) => sum + segment.duration, 0)
+      const priceA = a.price
+      const priceB = b.price
+
+      return totalDurationA + priceA - (totalDurationB + priceB)
+    })
+  }
+
+  return sortedTickets
 }
