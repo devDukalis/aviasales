@@ -11,7 +11,7 @@ const Empty: FC = () => {
   return (
     <Paper radius="5px" shadow="sm" p="md" mb="md" ff={"Open-Sans-Semi-Bold"}>
       <Text fz={matches ? 12 : 16} c={theme.colors?.fontMain?.[0]}>
-        ⚠️ Рейсов, удовлетворяющих заданным условиям, не найдено!
+        ⚠️ Рейсов, подходящих под заданные фильтры, не найдено!
       </Text>
     </Paper>
   )

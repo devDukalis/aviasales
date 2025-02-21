@@ -1,6 +1,7 @@
 import { Group, Box } from "@mantine/core"
 
 import TransferFilterItem from "@/components/TransferFilterItem"
+import Empty from "@/components/Empty"
 import { transferFilters } from "@/constants"
 import { useAppDispatch, useAppSelector } from "@/redux/hooks"
 import { RootState } from "@/redux/store"
@@ -9,16 +10,20 @@ import { setFilterBy } from "@/redux/features/tickets"
 
 const TransferFilterList = () => {
   const dispatch = useAppDispatch()
-  const filters = useAppSelector((state: RootState) => state.tickets.filters)
+  const { filters, tickets } = useAppSelector((state: RootState) => state.tickets)
 
   const handleToggleFilter = (filter: FlightTransferFilterKeys) => {
     dispatch(setFilterBy(filter))
   }
 
+  const isEmpty = Object.values(filters).every((value) => !value) && tickets.length === 0
+
   return (
     <>
-      {transferFilters.map((item, index) => {
-        return (
+      {isEmpty ? (
+        <Empty />
+      ) : (
+        transferFilters.map((item, index) => (
           <Box
             key={index}
             h={20}
@@ -33,8 +38,8 @@ const TransferFilterList = () => {
               />
             </Group>
           </Box>
-        )
-      })}
+        ))
+      )}
     </>
   )
 }

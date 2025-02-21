@@ -1,5 +1,9 @@
+import { useEffect } from "react"
 import { Flex, Grid, Container, Text, Box } from "@mantine/core"
 
+import { useAppDispatch, useAppSelector } from "@/redux/hooks"
+import { setSearchId, setStop, setTickets } from "@/redux/features/tickets"
+import { useGetSearchIdQuery, useGetTicketsBySearchIdQuery } from "@/services/api"
 import Header from "@/components/Header"
 import Logo from "@/components/Logo"
 import Main from "@/components/Main"
@@ -11,6 +15,38 @@ import styles from "@/components/App/styles.module.scss"
 import theme from "@/theme"
 
 const App = () => {
+  const dispatch = useAppDispatch()
+  const { searchId, stop } = useAppSelector((state) => state.tickets)
+
+  const {
+    data: searchIdData,
+    isSuccess: isSearchIdSuccess,
+    isFetching: isSearchIdFetching,
+  } = useGetSearchIdQuery()
+  const {
+    data: ticketsData,
+    isSuccess: isTicketsSuccess,
+    isFetching: isTicketsFetching,
+  } = useGetTicketsBySearchIdQuery(searchId, {
+    skip: !searchId || stop,
+  })
+
+  const isInitialLoading = !searchId || isSearchIdFetching
+  const isFetching = isInitialLoading || isTicketsFetching
+
+  useEffect(() => {
+    if (isSearchIdSuccess && searchIdData) {
+      dispatch(setSearchId(searchIdData))
+    }
+  }, [dispatch, isSearchIdSuccess, searchIdData])
+
+  useEffect(() => {
+    if (isTicketsSuccess && ticketsData) {
+      dispatch(setTickets(ticketsData.tickets))
+      dispatch(setStop(ticketsData.stop))
+    }
+  }, [dispatch, isTicketsSuccess, ticketsData])
+
   return (
     <Box className={styles.app}>
       <Container>
@@ -39,7 +75,7 @@ const App = () => {
 
             <Grid.Col span={{ base: 12, md: 8, lg: 9 }}>
               <TicketFilterList />
-              <TicketList />
+              <TicketList isFetching={isFetching} />
             </Grid.Col>
           </Grid>
         </Main>

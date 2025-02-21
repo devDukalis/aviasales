@@ -22,3 +22,5 @@ export type FlightTransferFilterKeys =
   | "threeTransfers"
 
 export type TicketSortFilterKeys = "cheapest" | "fastest" | "optimal"
+
+export type SearchId = string

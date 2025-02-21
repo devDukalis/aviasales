@@ -4,17 +4,21 @@ import { FallbackProps } from "react-error-boundary"
 
 const ErrorFallback: FC<FallbackProps> = ({ error, resetErrorBoundary }) => {
   return (
-    <Container fluid style={{ height: "100vh" }}>
-      <Center style={{ flexDirection: "column", height: "100%" }}>
-        <Grid justify="center" style={{ width: "100%", padding: "0 16px" }}>
+    <Container fluid style={{ height: "100vh" }} p={0}>
+      <Center style={{ flexDirection: "column" }}>
+        <Grid style={{ width: "100%" }}>
           <Grid.Col span={12} style={{ maxWidth: "400px", width: "100%" }}>
-            <Alert title="Something went wrong..." color="red" style={{ marginBottom: "20px" }}>
-              <Text lineClamp={5} style={{ margin: 0, maxWidth: 352 }}>
+            <Alert
+              title="Что-то пошло не так..."
+              color="red"
+              style={{ marginBottom: "20px" }}
+              ff={"Open-Sans-Semi-Bold"}>
+              <Text lineClamp={5} style={{ margin: 0, maxWidth: 352 }} ff={"Open-Sans-Regular"}>
                 Error: {error.message}
               </Text>
             </Alert>
-            <Button onClick={resetErrorBoundary} color="blue" fullWidth>
-              Try again
+            <Button onClick={resetErrorBoundary} color="blue" fullWidth tt={"uppercase"}>
+              Попробуйте снова
             </Button>
           </Grid.Col>
         </Grid>

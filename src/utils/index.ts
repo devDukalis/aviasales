@@ -72,7 +72,12 @@ export const sortTickets = (tickets: Ticket[], sortBy: TicketSortFilterKeys): Ti
       const priceA = a.price
       const priceB = b.price
 
-      return totalDurationA + priceA - (totalDurationB + priceB)
+      // Сначала сортируем по продолжительности, затем по цене
+      if (totalDurationA === totalDurationB) {
+        return priceA - priceB
+      }
+
+      return totalDurationA - totalDurationB
     })
   }
 

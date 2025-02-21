@@ -6,13 +6,14 @@ import TicketFilterItem from "@/components/TicketFilterItem"
 import { borderRadiusValues, queries, ticketFilters } from "@/constants"
 import { useAppDispatch } from "@/redux/hooks"
 import { setSortBy } from "@/redux/features/tickets"
+import { TicketSortFilterKeys } from "@/models"
 
 const TicketFilterList = () => {
   const [activeIndex, setActiveIndex] = useState<number | null>(0)
   const matches = useMediaQuery(`(max-width:  ${queries[1]})`)
   const dispatch = useAppDispatch()
 
-  const handleFilterClick = (index: number, sortKey: string) => {
+  const handleFilterClick = (index: number, sortKey: TicketSortFilterKeys) => {
     setActiveIndex(index)
     dispatch(setSortBy(sortKey))
   }

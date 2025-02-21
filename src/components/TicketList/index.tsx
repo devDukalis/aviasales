@@ -1,12 +1,17 @@
-import { Button } from "@mantine/core"
+import { FC } from "react"
+import { Button, Center, Loader } from "@mantine/core"
 
 import TicketItem from "@/components/TicketItem"
+import Empty from "@/components/Empty"
 import { useAppDispatch, useAppSelector } from "@/redux/hooks"
 import { selectSortedAndFilteredTickets, selectVisibleTickets } from "@/redux/selectors"
-import Empty from "@/components/Empty"
 import { increaseVisibleTickets } from "@/redux/features/tickets"
 
-const TicketList = () => {
+type Props = {
+  isFetching?: boolean
+}
+
+const TicketList: FC<Props> = ({ isFetching }) => {
   const sortedTickets = useAppSelector(selectSortedAndFilteredTickets)
   const visibleTickets = useAppSelector(selectVisibleTickets)
   const dispatch = useAppDispatch()
@@ -16,6 +21,13 @@ const TicketList = () => {
   }
 
   if (!Array.isArray(sortedTickets) || sortedTickets.length === 0) {
+    if (isFetching) {
+      return (
+        <Center>
+          <Loader />
+        </Center>
+      )
+    }
     return <Empty />
   }
 
@@ -24,10 +36,16 @@ const TicketList = () => {
       {sortedTickets.slice(0, visibleTickets).map((ticket) => (
         <TicketItem data={ticket} key={ticket.id} />
       ))}
-      {visibleTickets < sortedTickets.length && (
-        <Button onClick={handleLoadMoreTickets} fullWidth mt="20px" tt={"uppercase"}>
-          Показать еще 5 билетов!
-        </Button>
+      {isFetching ? (
+        <Center>
+          <Loader />
+        </Center>
+      ) : (
+        visibleTickets < sortedTickets.length && (
+          <Button onClick={handleLoadMoreTickets} fullWidth mt="20px" tt={"uppercase"}>
+            Показать еще 5 билетов!
+          </Button>
+        )
       )}
     </>
   )
