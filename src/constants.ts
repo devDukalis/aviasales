@@ -20,4 +20,4 @@ export const queries = ["375px", "570px"]
 
 export const baseUrlImage = "https://pics.avs.io/110/36/"
 
-export const pollingInterval = 5000
+export const pollingInterval = 30000
