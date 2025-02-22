@@ -3,6 +3,7 @@ import { Flex, Grid, Container, Text, Box } from "@mantine/core"
 
 import { useAppDispatch, useAppSelector } from "@/redux/hooks"
 import { setHasError, setSearchId, setStop, setTickets } from "@/redux/features/tickets"
+import { selectAreFiltersActive } from "@/redux/selectors"
 import { useGetSearchIdQuery, useGetTicketsBySearchIdQuery } from "@/services/api"
 import Header from "@/components/Header"
 import Logo from "@/components/Logo"
@@ -19,13 +20,14 @@ import { pollingInterval } from "@/constants"
 const App = () => {
   const dispatch = useAppDispatch()
   const { searchId, stop, hasError } = useAppSelector((state) => state.tickets)
+  const areFiltersActive = useAppSelector(selectAreFiltersActive)
 
   const {
     data: searchIdData,
     isSuccess: isSearchIdSuccess,
     isFetching: isSearchIdFetching,
     isError: isSearchIdError,
-  } = useGetSearchIdQuery(undefined, { pollingInterval: hasError ? 0 : pollingInterval })
+  } = useGetSearchIdQuery()
   const {
     data: ticketsData,
     isSuccess: isTicketsSuccess,
@@ -33,7 +35,7 @@ const App = () => {
     isError: isTicketsError,
   } = useGetTicketsBySearchIdQuery(searchId, {
     skip: !searchId || stop,
-    pollingInterval: hasError ? 0 : pollingInterval,
+    pollingInterval: hasError || !areFiltersActive ? 0 : pollingInterval,
   })
 
   const isInitialLoading = !searchId || isSearchIdFetching

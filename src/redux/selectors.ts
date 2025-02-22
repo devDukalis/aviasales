@@ -16,3 +16,13 @@ export const selectSortedAndFilteredTickets = createSelector(
     return sortTickets(filteredTickets, sortBy)
   },
 )
+
+export const selectAreFiltersActive = createSelector([selectTransferFilters], (filters) => {
+  return (
+    filters.all ||
+    filters.noTransfers ||
+    filters.oneTransfer ||
+    filters.twoTransfers ||
+    filters.threeTransfers
+  )
+})
