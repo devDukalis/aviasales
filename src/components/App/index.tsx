@@ -2,7 +2,7 @@ import { useEffect } from "react"
 import { Flex, Grid, Container, Text, Box } from "@mantine/core"
 
 import { useAppDispatch, useAppSelector } from "@/redux/hooks"
-import { setSearchId, setStop, setTickets } from "@/redux/features/tickets"
+import { setHasError, setSearchId, setStop, setTickets } from "@/redux/features/tickets"
 import { useGetSearchIdQuery, useGetTicketsBySearchIdQuery } from "@/services/api"
 import Header from "@/components/Header"
 import Logo from "@/components/Logo"
@@ -11,28 +11,37 @@ import Aside from "@/components/Aside"
 import TransferFilterList from "@/components/TransferFilterList"
 import TicketFilterList from "@/components/TicketFilterList"
 import TicketList from "@/components/TicketList"
+import Error from "@/components/Error"
 import styles from "@/components/App/styles.module.scss"
 import theme from "@/theme"
+import { pollingInterval } from "@/constants"
 
 const App = () => {
   const dispatch = useAppDispatch()
-  const { searchId, stop } = useAppSelector((state) => state.tickets)
+  const { searchId, stop, hasError } = useAppSelector((state) => state.tickets)
 
   const {
     data: searchIdData,
     isSuccess: isSearchIdSuccess,
     isFetching: isSearchIdFetching,
-  } = useGetSearchIdQuery()
+    isError: isSearchIdError,
+  } = useGetSearchIdQuery(undefined, { pollingInterval: hasError ? 0 : pollingInterval })
   const {
     data: ticketsData,
     isSuccess: isTicketsSuccess,
     isFetching: isTicketsFetching,
+    isError: isTicketsError,
   } = useGetTicketsBySearchIdQuery(searchId, {
     skip: !searchId || stop,
+    pollingInterval: hasError ? 0 : pollingInterval,
   })
 
   const isInitialLoading = !searchId || isSearchIdFetching
   const isFetching = isInitialLoading || isTicketsFetching
+
+  useEffect(() => {
+    dispatch(setHasError(isSearchIdError || isTicketsError))
+  }, [dispatch, isSearchIdError, isTicketsError])
 
   useEffect(() => {
     if (isSearchIdSuccess && searchIdData) {
@@ -75,7 +84,9 @@ const App = () => {
 
             <Grid.Col span={{ base: 12, md: 8, lg: 9 }}>
               <TicketFilterList />
-              <TicketList isFetching={isFetching} />
+              {isSearchIdError && <Error message="Ошибка при поиске SearchId" />}
+              {isTicketsError && <Error message="Ошибка при поиске билетов" />}
+              {!isSearchIdError && !isTicketsError && <TicketList isFetching={isFetching} />}
             </Grid.Col>
           </Grid>
         </Main>

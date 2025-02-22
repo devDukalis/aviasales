@@ -66,18 +66,23 @@ export const sortTickets = (tickets: Ticket[], sortBy: TicketSortFilterKeys): Ti
       return totalDurationA - totalDurationB
     })
   } else if (sortBy === "optimal") {
+    // Находим максимумы для нормализации
+    const maxPrice = Math.max(...sortedTickets.map((t) => t.price))
+    const maxDuration = Math.max(
+      ...sortedTickets.map((t) => t.segments.reduce((sum, s) => sum + s.duration, 0)),
+    )
+
     sortedTickets.sort((a, b) => {
-      const totalDurationA = a.segments.reduce((sum, segment) => sum + segment.duration, 0)
-      const totalDurationB = b.segments.reduce((sum, segment) => sum + segment.duration, 0)
-      const priceA = a.price
-      const priceB = b.price
+      // Нормализованные значения (0-1)
+      const normPriceA = a.price / maxPrice
+      const normDurationA = a.segments.reduce((sum, s) => sum + s.duration, 0) / maxDuration
+      const scoreA = normPriceA * 0.7 + normDurationA * 0.3 // Веса: цена 70%, длительность 30%
 
-      // Сначала сортируем по продолжительности, затем по цене
-      if (totalDurationA === totalDurationB) {
-        return priceA - priceB
-      }
+      const normPriceB = b.price / maxPrice
+      const normDurationB = b.segments.reduce((sum, s) => sum + s.duration, 0) / maxDuration
+      const scoreB = normPriceB * 0.7 + normDurationB * 0.3
 
-      return totalDurationA - totalDurationB
+      return scoreA - scoreB
     })
   }
 

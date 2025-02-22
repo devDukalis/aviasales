@@ -17,6 +17,7 @@ export type TicketsState = {
   visibleTickets: number
   searchId: SearchId
   stop: boolean
+  hasError: boolean
 }
 
 const initialState: TicketsState = {
@@ -32,6 +33,7 @@ const initialState: TicketsState = {
   visibleTickets: 5,
   searchId: "",
   stop: false,
+  hasError: false,
 }
 
 const ticketsSlice = createSlice({
@@ -88,9 +90,19 @@ const ticketsSlice = createSlice({
     setStop: (state, action: PayloadAction<boolean>) => {
       state.stop = action.payload
     },
+    setHasError: (state, action: PayloadAction<boolean>) => {
+      state.hasError = action.payload
+    },
   },
 })
 
-export const { setTickets, setSortBy, increaseVisibleTickets, setFilterBy, setSearchId, setStop } =
-  ticketsSlice.actions
+export const {
+  setTickets,
+  setSortBy,
+  increaseVisibleTickets,
+  setFilterBy,
+  setSearchId,
+  setStop,
+  setHasError,
+} = ticketsSlice.actions
 export default ticketsSlice.reducer
